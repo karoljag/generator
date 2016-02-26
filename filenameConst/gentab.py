@@ -1,0 +1,110 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import csv
+import sys
+import datetime
+
+now = datetime.datetime.now()
+
+myDate = now.strftime("%Y%m%d%H%M")
+print myDate
+
+# print now.strftime("%Y%m%d%H%M")
+
+dest = [ "ANC","ABQ","ACK","ALB","ANU","AUA","AUS","AZS","BDA","BDL","BGI","BOG","BOS","BQN","BTV","BUF","BUR","BWI","CHS","CLE","CLT","CTG","CUN","CUR","DCA","DEN","DFW","DTW","EWR","FLL","GCM","GND","HOU","HPN","HYA","IAD","JAX","JFK","KIN","LAS","LAX","LGA","LGB","LIM","LIR","LRM","MBJ","MCO","MDE","MEX","MSY","MVY","NAS","OAK","ORD","ORH","PAP","PBI","PDX","PHL","PHX","PIT","PLS","POP","POS","PSE","PSP","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAV","SDQ","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SRQ","STI","STT","STX","SWF","SXM","SYR","TPA","UVF"]
+
+# print dest
+# print len(dest)
+# for i in dest:
+#     print i
+# print dest[0]
+
+
+# userId = sys.argv[3]
+userId = "Babu"
+csv.register_dialect('excel', delimiter='|', quoting=csv.QUOTE_NONE)
+
+# --------------------------------------------------  tworzenie MEMBERS-------------------------
+member = open("JETBLUE_MEMBERS_"+myDate+".csv", 'wt')
+ileuserow = 1
+try:
+    writer = csv.writer(member,delimiter = '|')
+    writer.writerow(('ROW_MARKER','CARD_NUMBER','ENROLLMENT_DATE','BIRTH_DATE','T_C_ACCEPTED_DATE','STATUS','REGION','COUNTRY_CODE','CITY','POSTCODE','SEATING_PREF1','SEATING_PREF2','BUSINES_FREQ','PLEASURE_FREQ','SMB_OWN','CC_AGREEMENT','EMAIL_AGREEMENT','POST_AGREEMENT','SMS_AGREEMENT','FAV1_AIRPORT','FAV2_AIRPORT','HOME_AIRPORT','GENDER','FIRST_NAME','MIDDLE_NAME','LAST_NAME','EMAIL'))
+    for i in range(ileuserow):
+           writer.writerow( ('U',userId,'2014-06-08 09:04:13','2016-02-13 00:00:00','2014-06-08 00:00:00','A','BB-01','BRB','westpalmbeach','0','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach','Unknown','N','N','N','','JFK','','BGI','F','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach@HOTMAIL.COM','25167','2014-05-09 00:00:00','2015-03-01 00:00:00','','','2014-03-16 00:00:00','','F','W','B6','','MR','','60 Simmons Road','cancun','','2417373','M','','','','','','','en-us','ENG','','F','','','','','','','','0'))
+    writer.writerow(('T',ileuserow))
+
+finally:                                                                                                                                                        
+  member.close()
+
+
+
+# --------------------------------------------------  tworzenie TRANSACTIONS-------------------------
+transaction = open("JETBLUE_TRANSACTION_"+myDate+".csv", 'awt')
+try:
+    writer = csv.writer(transaction,delimiter = '|')
+    writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
+    for de in dest :     
+         writer.writerow( (  'I','842166164','B6','12',userId,'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y',dest[0]+de,'seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
+    writer.writerow(('T',"94"))
+finally:
+    transaction.close()
+
+#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  tworzenie pustych XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+zera = "0000000000"
+
+#---------------------------------------members-------------------------------------------------------
+
+member = open("JETBLUE_MEMBERS_"+zera+".csv", 'wt')
+ileuserow = 0
+try:
+    writer = csv.writer(member,delimiter = '|')
+    writer.writerow(('ROW_MARKER','CARD_NUMBER','ENROLLMENT_DATE','BIRTH_DATE','T_C_ACCEPTED_DATE','STATUS','REGION','COUNTRY_CODE','CITY','POSTCODE','SEATING_PREF1','SEATING_PREF2','BUSINES_FREQ','PLEASURE_FREQ','SMB_OWN','CC_AGREEMENT','EMAIL_AGREEMENT','POST_AGREEMENT','SMS_AGREEMENT','FAV1_AIRPORT','FAV2_AIRPORT','HOME_AIRPORT','GENDER','FIRST_NAME','MIDDLE_NAME','LAST_NAME','EMAIL'))
+    for i in range(ileuserow):
+           writer.writerow( ('U',userId,'2014-06-08 09:04:13','2016-02-13 00:00:00','2014-06-08 00:00:00','A','BB-01','BRB','westpalmbeach','0','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach','Unknown','N','N','N','','JFK','','BGI','F','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach@HOTMAIL.COM','25167','2014-05-09 00:00:00','2015-03-01 00:00:00','','','2014-03-16 00:00:00','','F','W','B6','','MR','','60 Simmons Road','cancun','','2417373','M','','','','','','','en-us','ENG','','F','','','','','','','','0'))
+    writer.writerow(('T',ileuserow))
+
+finally:                                                                                                                                                        
+  member.close()
+
+#-----------------------------------transactions---------------------------------------------------------  
+
+  transaction = open("JETBLUE_TRANSACTION_"+zera+".csv", 'awt')
+try:
+    writer = csv.writer(transaction,delimiter = '|')
+    writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
+    writer.writerow(('T',"0"))
+finally:
+    transaction.close()
+
+#----------------------------------member counter---------------------------------------------------------    
+
+  membCount = open("JETBLUE_MEMBER_COUNTER_"+zera+".csv", 'awt')
+try:
+    writer = csv.writer(membCount,delimiter = '|')
+    writer.writerow(("ROW_MARKER","CARD_NUMBER","COUNTER_CODE","COUNTER_NAME","BUSINES_RULE_CODE","COUNTER_PERIOD","COUNTER_VALUE"))
+    writer.writerow(('T',"0"))
+finally:
+    membCount.close()
+
+#---------------------------member fam--------------------------------------------------------------------------
+
+  membFam = open("JETBLUE_MEMBERS_FAM_"+zera+".csv", 'awt')
+try:
+    writer = csv.writer(membFam,delimiter = '|')
+    writer.writerow(("ROW_MARKER","MBF_ID","","TB#","FAMILY_ID","MBR_FAM_START_DATE","","MBR_FAM_HOH","MBR_FAM_ROLE","","MBR_FAM_RELATIONSHIP","","MBR_FAM_CONTRIBUTION_ONGOING_PERCENT","","MBR_FAM_CONTRIBUTION_ONGOING_POINTS","MBR_FAM_CONTRIBUTION_INSTANT_PERCENT","","MBR_FAM_CONTRIBUTION_INSTANT_POINTS","MBR_REGISTRATION_DATE","MBR_UNREGISTRATION_DATE","MBR_UNREGISTRATION_REASON","MBR_INVITATION_EMAIL","","MBR_INTIVATION_FIRST_NAME","MBR_INVITATION_STATUS","MBR_REC_TYPE"))
+
+    writer.writerow(('T',"0"))
+finally:
+    membFam.close()
+
+#-------------------------------------------MEMB RLE-------------------------------------------------------------------
+
+  membRle = open("JETBLUE_MEMBERS_RLE_"+zera+".csv", 'awt')
+try:
+    writer = csv.writer(membRle,delimiter = '|')
+    writer.writerow(("ROW_MARKER","CARD_NUMBER","REC_LEVEL_CODE","CREATED_DATE","START_DATE","END_DATE","METHOD","ARL_TRN_ID","PRO_CODE","ARL_CHANNEL","ARL_MODIFICATION_REASON_CODE","ID"))
+    writer.writerow(('T',"0"))
+finally:
+    membRle.close()
+
