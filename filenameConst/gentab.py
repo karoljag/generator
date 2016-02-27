@@ -61,7 +61,7 @@ try:
     writer = csv.writer(member,delimiter = '|')
     writer.writerow(('ROW_MARKER','CARD_NUMBER','ENROLLMENT_DATE','BIRTH_DATE','T_C_ACCEPTED_DATE','STATUS','REGION','COUNTRY_CODE','CITY','POSTCODE','SEATING_PREF1','SEATING_PREF2','BUSINES_FREQ','PLEASURE_FREQ','SMB_OWN','CC_AGREEMENT','EMAIL_AGREEMENT','POST_AGREEMENT','SMS_AGREEMENT','FAV1_AIRPORT','FAV2_AIRPORT','HOME_AIRPORT','GENDER','FIRST_NAME','MIDDLE_NAME','LAST_NAME','EMAIL'))
     for i in range(ileuserow):
-           writer.writerow( ('U',userId,'2014-06-08 09:04:13','2016-02-13 00:00:00','2014-06-08 00:00:00','A','BB-01','BRB','westpalmbeach','0','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach','Unknown','N','N','N','','JFK','','BGI','F','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach@HOTMAIL.COM','25167','2014-05-09 00:00:00','2015-03-01 00:00:00','','','2014-03-16 00:00:00','','F','W','B6','','MR','','60 Simmons Road','cancun','','2417373','M','','','','','','','en-us','ENG','','F','','','','','','','','0'))
+        writer.writerow( ('U',userId,'2014-06-08 09:04:13','2016-02-13 00:00:00','2014-06-08 00:00:00','A','BB-01','BRB','westpalmbeach','0','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach','Unknown','N','N','N','','JFK','','BGI','F','westpalmbeach','westpalmbeach','westpalmbeach','westpalmbeach@HOTMAIL.COM','25167','2014-05-09 00:00:00','2015-03-01 00:00:00','','','2014-03-16 00:00:00','','F','W','B6','','MR','','60 Simmons Road','cancun','','2417373','M','','','','','','','en-us','ENG','','F','','','','','','','','0'))
     writer.writerow(('T',ileuserow))
 
 finally:                                                                                                                                                        
@@ -77,9 +77,9 @@ try:
 finally:
     transaction.close()
 
-#----------------------------------member counter---------------------------------------------------------    
+# ----------------------------------member counter---------------------------------------------------------    
 
-  membCount = open("JETBLUE_MEMBER_COUNTER_"+zera+".csv", 'awt')
+membCount = open("JETBLUE_MEMBER_COUNTER_"+zera+".csv", 'awt')
 try:
     writer = csv.writer(membCount,delimiter = '|')
     writer.writerow(("ROW_MARKER","CARD_NUMBER","COUNTER_CODE","COUNTER_NAME","BUSINES_RULE_CODE","COUNTER_PERIOD","COUNTER_VALUE"))
@@ -87,20 +87,19 @@ try:
 finally:
     membCount.close()
 
-#---------------------------member fam--------------------------------------------------------------------------
+ #---------------------------member fam--------------------------------------------------------------------------
 
-  membFam = open("JETBLUE_MEMBERS_FAM_"+zera+".csv", 'awt')
+membFam = open("JETBLUE_MEMBERS_FAM_"+zera+".csv", 'awt')
 try:
     writer = csv.writer(membFam,delimiter = '|')
-    writer.writerow(("ROW_MARKER","MBF_ID","","TB#","FAMILY_ID","MBR_FAM_START_DATE","","MBR_FAM_HOH","MBR_FAM_ROLE","","MBR_FAM_RELATIONSHIP","","MBR_FAM_CONTRIBUTION_ONGOING_PERCENT","","MBR_FAM_CONTRIBUTION_ONGOING_POINTS","MBR_FAM_CONTRIBUTION_INSTANT_PERCENT","","MBR_FAM_CONTRIBUTION_INSTANT_POINTS","MBR_REGISTRATION_DATE","MBR_UNREGISTRATION_DATE","MBR_UNREGISTRATION_REASON","MBR_INVITATION_EMAIL","","MBR_INTIVATION_FIRST_NAME","MBR_INVITATION_STATUS","MBR_REC_TYPE"))
-
+    writer.writerow(("ROW_MARKER","MBF_ID","TB#","FAMILY_ID","MBR_FAM_START_DATE","MBR_FAM_HOH","MBR_FAM_ROLE","MBR_FAM_RELATIONSHIP","MBR_FAM_CONTRIBUTION_ONGOING_PERCENT","MBR_FAM_CONTRIBUTION_ONGOING_POINTS","MBR_FAM_CONTRIBUTION_INSTANT_PERCENT","MBR_FAM_CONTRIBUTION_INSTANT_POINTS","MBR_REGISTRATION_DATE","MBR_UNREGISTRATION_DATE","MBR_UNREGISTRATION_REASON","MBR_INVITATION_EMAIL","MBR_INTIVATION_FIRST_NAME","MBR_INVITATION_STATUS","MBR_REC_TYPE"))
     writer.writerow(('T',"0"))
 finally:
     membFam.close()
 
 #-------------------------------------------MEMB RLE-------------------------------------------------------------------
 
-  membRle = open("JETBLUE_MEMBERS_RLE_"+zera+".csv", 'awt')
+membRle = open("JETBLUE_MEMBERS_RLE_"+zera+".csv", 'awt')
 try:
     writer = csv.writer(membRle,delimiter = '|')
     writer.writerow(("ROW_MARKER","CARD_NUMBER","REC_LEVEL_CODE","CREATED_DATE","START_DATE","END_DATE","METHOD","ARL_TRN_ID","PRO_CODE","ARL_CHANNEL","ARL_MODIFICATION_REASON_CODE","ID"))
@@ -108,3 +107,21 @@ try:
 finally:
     membRle.close()
 
+
+# ----------------------------------------Redemptions---------------------------------------------------------------------
+redemptions = open("JETBLUE_REDEMPTIONS_"+zera+".csv", 'awt')
+try:
+    writer = csv.writer(redemptions,delimiter = '|')
+    writer.writerow(("ROW_MARKER","REDEMPTION_CODE","TRANSACTION_CODE","REDEMPTION_TYPE","DEPARTURE_DATE","BOOKING_DATE","CANCEL_DATE","ORIGIN","DESTINATION","BOOKING_CLASS","CONSUMPTION_DATE","AWARD_CODE","ORDER_CHANNEL","ORDER_STATUS","PARTNER","PNR_LOCATOR","FIRST_NAME","LAST_NAME","OLD_NEW_REDEMPTION","POINTS_PAID","MONEY_PAID","NUM_OF_PASSENGERS","CARD_NUMBER","ARD_PARTNER_TRANSACTION_ID","ARD_MIDDLE_NAME","ARD_FLIGHT_NO","ARD_ARRIVAL_DATE","ARD_OPERATING_AIRLINE","ARD_CUSTOMER_ID","ARD_GENDER","ARD_PRICE_IN_POINTS","ARD_PRICE_IN_CASH","ARD_QUANTITY","ARD_CANCEL_TRN_ID","ARD_KIND","ARD_EXT01","ARD_EXT02","ARD_EXT03","ARD_EXT04","ARD_EXT05","ARD_EXT06","ARD_EXT07","ARD_EXT08","ARD_EXT09","ARD_EXT10"))
+    writer.writerow(('T',"0"))
+finally:
+    redemptions.close()
+
+#-----------------------------------------TRN POINT TYPE----------------------------------------------------------------------
+redemptions = open("JETBLUE_TRN_POINT_TYPE_"+zera+".csv", 'awt')
+try:
+    writer = csv.writer(redemptions,delimiter = '|')
+    writer.writerow(("ROW_MARKER","TRANS_POINT_TYPE_CODE","TRANS_CODE","POINT_TYPE_CODE","POINTS_VALUE","EXPIRATION_DATE","CARD_NUMBER","TRUEPASS_NO","SRC_TP_ACCRUAL_TRN_ID","SRC_PTS_ACCRUAL_TRN_ID"))
+    writer.writerow(('T',"0"))
+finally:
+    redemptions.close()
