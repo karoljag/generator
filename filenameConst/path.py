@@ -4,6 +4,7 @@ import csv
 import sys
 import datetime
 import os
+import shutil
 
 # filename = "/Pulpit/generator/filenameConst"
 # save_path = '/home/karolubu/Pulpit/generator'
@@ -24,12 +25,12 @@ userId = "PathCsvUserName"
 now = datetime.datetime.now()
 myDate = now.strftime("%Y%m%d%H%M%S")
 
-newpath = r'/home/karolubu/Pulpit/generator/dane/'+myDate+'/usr' 
-if not os.path.exists(newpath):
-    os.makedirs(newpath,0755)
+usrPath = r'/home/karolubu/Pulpit/generator/dane/'+myDate+'/usr' 
+if not os.path.exists(usrPath):
+    os.makedirs(usrPath,0755)
 
 # f = open(r"/home/karolubu/Pulpit/generator/papa/JETBLUE_MEMBERS_"+myDate+".csv", "a")
-f = open(newpath+"/JETBLUE_MEMBERS_"+myDate+".csv", "a")
+f = open(usrPath+"/JETBLUE_MEMBERS_"+myDate+".csv", "a")
 # member = open("JETBLUE_MEMBERS_"+myDate+".csv", 'wt')
 ileuserow = 1
 try:
@@ -41,3 +42,7 @@ try:
 
 finally:                                                                                                                                                        
 	f.close()
+
+
+shutil.make_archive('output_filename.zip', 'zip', "/home/karolubu/Pulpit/generator/filenameConst")
+# shutil.make_archive("desired_zipfile_name_no", "zip", "name_of_the_folder_you_want_to_zip")
