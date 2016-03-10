@@ -5,26 +5,24 @@ import sys
 import datetime
 import os
 import shutil
+from sys import argv
 
 
 now = datetime.datetime.now()
 
 myDate = now.strftime("%Y%m%d%H%M%S")
 shortDate = now.strftime("%M%S")
-print myDate
 
-# print now.strftime("%Y%m%d%H%M")
-
+# destynacje w jestblue
 dest = [ "ANC","ABQ","ACK","ALB","ANU","AUA","AUS","AZS","BDA","BDL","BGI","BOG","BOS","BQN","BTV","BUF","BUR","BWI","CHS","CLE","CLT","CTG","CUN","CUR","DCA","DEN","DFW","DTW","EWR","FLL","GCM","GND","HOU","HPN","HYA","IAD","JAX","JFK","KIN","LAS","LAX","LGA","LGB","LIM","LIR","LRM","MBJ","MCO","MDE","MEX","MSY","MVY","NAS","OAK","ORD","ORH","PAP","PBI","PDX","PHL","PHX","PIT","PLS","POP","POS","PSE","PSP","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAV","SDQ","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SRQ","STI","STT","STX","SWF","SXM","SYR","TPA","UVF"]
 
-# usrPath = r'/home/soi/Pulpit/generator/dane/'+myDate+'/usr' 
+
 usrPath = os.path.dirname(os.path.realpath(__file__))+'/dane/'+myDate+'/usr'
 
 
 if not os.path.exists(usrPath):
     os.makedirs(usrPath,0755)
 
-# tranPath = r'/home/soi/Pulpit/generator/dane/'+myDate+'/trn' 
 
 tranPath = os.path.dirname(os.path.realpath(__file__))+'/dane/'+myDate+'/trn'
 
@@ -33,7 +31,14 @@ if not os.path.exists(tranPath):
     os.makedirs(tranPath,0777)
 
 
+
 userId = shortDate
+
+
+
+
+
+
 csv.register_dialect('excel', delimiter='|', quoting=csv.QUOTE_NONE)
 
 
@@ -73,7 +78,7 @@ finally:
 # --------------------------------------------------------------wszystkie loty miedzy lotniskami dla jednego usera X10 (8742)-----------------
 
 transaction8742 = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")
-
+T=0 #ilosc wierszy
 try:
     writer = csv.writer(transaction8742,delimiter = '|')
     writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
@@ -81,7 +86,8 @@ try:
       for ie in dest : 
         for ilosc in range (10):  
          writer.writerow((  'I','842166164','B6','12',userId,'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y',de+ie,'seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
-    writer.writerow(('T',"8742"))
+         T=T+1
+    writer.writerow(('T',T))
 finally:
     transaction8742.close()
 
@@ -230,3 +236,4 @@ t1 = os.path.dirname(os.path.realpath(__file__))+'/dane/'+myDate +'/'
 shutil.make_archive(u1+shortDate +"us", 'zip',usrPathToZIP)
 shutil.make_archive(t1+shortDate +"tr", 'zip', tranPathToZIP)
 
+print "Folder: " +t1
