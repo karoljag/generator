@@ -322,5 +322,5 @@ shutil.make_archive(u1+shortDate +"us", 'zip',usrPathToZIP)
 shutil.make_archive(t1+shortDate +"tr", 'zip', tranPathToZIP)
 
 print myDate
-print T
+
 
