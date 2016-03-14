@@ -14,8 +14,8 @@ myDate = now.strftime("%Y%m%d%H%M%S")
 shortDate = now.strftime("%M%S")
 
 # destynacje w jestblue
-dest = [ "ANC","ABQ","ACK","ALB","ANU","AUA","AUS","AZS","BDA","BDL","BGI","BOG","BOS","BQN","BTV","BUF","BUR","BWI","CHS","CLE","CLT","CTG","CUN","CUR","DCA","DEN","DFW","DTW","EWR","FLL","GCM","GND","HOU","HPN","HYA","IAD","JAX","JFK","KIN","LAS","LAX","LGA","LGB","LIM","LIR","LRM","MBJ","MCO","MDE","MEX","MSY","MVY","NAS","OAK","ORD","ORH","PAP","PBI","PDX","PHL","PHX","PIT","PLS","POP","POS","PSE","PSP","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAV","SDQ","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SRQ","STI","STT","STX","SWF","SXM","SYR","TPA","UVF"] #94
-partnerCode = ["SQ","flowers","ha","ax","np","av","ft","bu","pc1","nca","CLUBW","gt","ngl","ek","he","hh","ihg","my","ner","ep","nrm","fbs","pcshm","3m","sa","ssi","ndw","zc"] #26
+dest = [ "ANC","ABQ","ACK","ALB","ANU","AUA","AUS","AZS","BDA","BDL","BGI","BOG","BOS","BQN","BTV","BUF","BUR","BWI","CHS","CLE","CLT","CTG","CUN","CUR","DCA","DEN","DFW","DTW","EWR","FLL","GCM","GND","HOU","HPN","HYA","IAD","JAX","JFK","KIN","LAS","LAX","LGA","LGB","LIM","LIR","LRM","MBJ","MCO","MDE","MEX","MSY","MVY","NAS","OAK","ORD","ORH","PAP","PBI","PDX","PHL","PHX","PIT","PLS","POP","POS","PSE","PSP","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAV","SDQ","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SRQ","STI","STT","STX","SWF","SXM","SYR","TPA","UVF"]
+
 T=0 #ilosc wierszy
 
 usrPath = os.path.dirname(os.path.realpath(__file__))+'/dane/'+myDate+'/usr'
@@ -32,143 +32,108 @@ if not os.path.exists(tranPath):
     os.makedirs(tranPath,0777)
 
 
+
 userId = shortDate
 
-# ------------------------------------------transakcjaLotnicza----------------------------------------------------------
-def transakcjaLotnicza():
+
+def allDest(ileDest):
     T=0 #ilosc wierszy
-    ileLotow = input("Ile lotow : ")
-    if int(ileLotow) < 1:
-        print "Zbyt mala liczba"
-    # else:
-    #     print "Robimy paczkę do testow lotu %s userow ktorzy lecieli  %s razy do wszystkich destynacji" % (ileuserow,ileLotow)
+    transactionall = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")   
+
+    try:
+        writer = csv.writer(transactionall,delimiter = '|')
+        writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
+          for de in range (0, ileuserow):
+          for ie in dest : 
+            for ile in range (ileuserow):   
+                for ilosc in range (ileLotow):  
+                    writer.writerow((  'I','842166164','B6','12',userId+str(ile),'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y',de+ie,'seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
+                    T=T+1
+        writer.writerow(('T',T))
+    finally:
+        transactionall.close()
 
 
-    ileDestynacji = input("Ile destynacji  > ")
-    if int(ileDestynacji) < 1:
-        print "Zbyt mala liczba"
-        print ileDestynacji
-        
-    if int(ileDestynacji) == 1:
-        kodLotn = raw_input("Kod Lotniska doceloweg : ")  
-        kodStr = str(kodLotn)
-        kod = str(kodLotn)
+def oneDest(k):
+
+    kod = str(k)
    
-        transaction = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")
+    transaction = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")
 
-        try:
-            writer = csv.writer(transaction,delimiter = '|')
-            writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
-            for de in dest :  
-              for ie in range (ileuserow):   
-                for ee in range (ileLotow):
-                 writer.writerow((  'I','842166164','B6','12',userId+str(ie),'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y',de+str(kod),'seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
-                 T+=1
-            writer.writerow(('T',T))
-        finally:
-            transaction.close()
-
+    try:
+        writer = csv.writer(transaction,delimiter = '|')
+        writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
+        for de in dest :  
+          for ie in range (ileuserow):   
+            for ee in range (ileLotow):
+             writer.writerow((  'I','842166164','B6','12',userId+str(ie),'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y',str(kod)+de,'seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
+        writer.writerow(('T',"94"))
+    finally:
+        transaction.close()
 
 
-    elif int(ileDestynacji) > 1:
-        transactionall = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")   
-        
-        try:
-            writer = csv.writer(transactionall,delimiter = '|')
-            writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
-            for de in range (0, ileDestynacji):
-              for ie in range (0, ileDestynacji): 
-                for ile in range (ileuserow):   
-                    for ilosc in range (ileLotow):  
-                        writer.writerow((  'I','842166164','B6','12',userId+str(ile),'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y',dest[de]+dest[ie],'seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','',''))
-                        T+=1
-                    writer.writerow(('T',T))
-        finally:
-            transactionall.close()
-
-# ---------------------------------------------------------------------------------------------------------------------------------------------------------
-def transakcjaPartnerska():
-    T=0 #ilosc wierszy
-
-
-
-
-    ilePartnerow = input("Ile partnerow  : ")  # ile kodów uzyje
-    if int(ilePartnerow) < 1:
-        print "Zbyt mala liczba"
-        print ilePartnerow
-
-    ileTransakcjiDlaKodu = input("Ile transakcji w obrebie jednego  partnra > ")   #ile transakcji partnerskich w obrebie konkretnego partnera 
-    if int(ileTransakcjiDlaKodu) < 1:
-        print "Zbyt mala liczba"
-    # else:
-    #     print "Robimy paczkę do testow lotu %s userow ktorzy lecieli  %s razy do wszystkich destynacji" % (ileuserow,ileLotow)
-
-
-
-        
-    if int(ilePartnerow) == 1:
-        kodPartnera = raw_input("Kod partnera : ")  
-   
-        transaction = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")
-
-        try:
-            writer = csv.writer(transaction,delimiter = '|')
-            writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
-            for ie in range (ileuserow):   
-                for ee in range (ileTransakcjiDlaKodu):
-                 writer.writerow((  'I','842166164',kodPartnera,'12',userId+str(ie),'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y','KRKWAW','seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
-                 T=T+1
-            writer.writerow(('T',T))
-        finally:
-            transaction.close()
-
-
-
-    elif int(ilePartnerow) > 1:
-        transactionall = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")   
-        T=0 #ilosc wierszy
-        try:
-            writer = csv.writer(transactionall,delimiter = '|')
-            writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
-            for de in range (0, ilePartnerow):
-              # for ie in range (0, ilePartnerow): 
-                 for ile in range (ileuserow):   
-                    for ilosc in range (ileTransakcjiDlaKodu):  
-                        writer.writerow((  'I','842166164',partnerCode[de],'12',userId+str(ile),'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y','KRKKRK','seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
-                        T=T+1
-            writer.writerow(('T',T))
-        finally:
-            transactionall.close()
+# kodLotn = 'nnn'
+# def kodL():
+#     kodLotn = input("Kod Lotniska > ")
+#     print str(kodLotn)
+#     return str(kodLotn)
 
 
 
 
 
 
-specifID = input("Podaj  jesli chcesz nadać specyficzne ID użytkownika (w przeciwnym wypadku zostanie nadane losowe) : ")
-if int(specifID) < 1:
-    uID = raw_input("Podaj ID ) : ")
-    userId = uID
-else:
-    userId = shortDate
-
-
-
-ileuserow = input("Ile uzytkownikow : ")
+ileuserow = input("Ile uzytkownikow > ")
 if int(ileuserow) < 1:
     print "Zbyt mala liczba"
 
-typTransakcji = raw_input ("Typ Transakcji (L)otnicza , (P)artnerska  : ")
-if typTransakcji == 'L':
-    print "LOTNICZA"
-    transakcjaLotnicza()
-if typTransakcji == 'P':
-    print "PARTNERSKA"
-    transakcjaPartnerska()
+
+ileLotow = input("Ile lotow > ")
+if int(ileLotow) < 1:
+    print "Zbyt mala liczba"
+# else:
+#     print "Robimy paczkę do testow lotu %s userow ktorzy lecieli  %s razy do wszystkich destynacji" % (ileuserow,ileLotow)
 
 
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   Tworzenie reszty potrzebnych csv @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+
+ileDestynacji = input("Ile destynacji > ")
+if int(ileDestynacji) < 1:
+    print "Zbyt mala liczba"
+    print ileDestynacji
+    
+if int(ileDestynacji) == 1:
+    kodLotn = input("Kod Lotniska > ")  
+    kodStr = str(kodLotn)
+    oneDest(kodStr)
+
+
+elif int(ileDestynacji) > 1:
+    allDest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # --------------------------------------------------  tworzenie MEMBERS-------------------------
 f = open(usrPath +"/JETBLUE_MEMBERS_"+myDate+".csv", "a")
@@ -183,6 +148,33 @@ try:
 
 finally:                                                                                                                                                        
   member.close()
+
+
+
+# --------------------------------------------------  TRANSACTIONS---------------------------------------------------------------
+
+
+# -----------------------------------------------------  wszytskie loty z ANC to wszystkich lotnisk X10--------------------------------
+# transaction = open(tranPath +"/JETBLUE_TRANSACTION_"+myDate+".csv", "awt")
+
+# try:
+#     writer = csv.writer(transaction,delimiter = '|')
+#     writer.writerow( ('ROW_MARKER','CODE','PARTNER','CHANNEL','CARD_NUMBER','TRANSACTION_DATE', 'PROCESSING_DATE','BOOKING_DATE', 'DEPARTURE_DATE','SOURCE_TRANSACTION_NO','BATCH_ID','USER_LOGIN','TRANS_TOTAL_VALUE','TRANSACTION_TYPE','TRANSACTION_STATUS','TARIFF','OND','BOOKING_LOCATION','AIRCRAFT_TYPE','AIRCRAFT_TAIL_NO','AIRLINE_MARKETING_CODE','ONLINE_BOOKING','PAX_TYPE','FEE_CODE','PARTNER_TRN_ID','TRANSACTION_CODE','TRANSACTION_FEE','TRANSACTION_POINTS','PARTNER_POINTS','IATA_LOCATION_CODE','PNR_LOCATOR','BASE_FARE','EXCISE_TAX','DISCOUNT_BASE','DISTANCE','COUPON_NO','AGENT_TYPE','IATA_LOC_NO','FLIGHT_NO','FLIGHT_NO_SUFFIX','OTHER_FFP_PROGRAM_CODE','OTHER_FFP_NO','TICKET_NO','TOUR_CODE','BULK_FARE_INDICATOR','FARE_BASIS','FLOWN_CLASS','TRANSACTION_VALUE','TRASNACTION_REVENUE','ADJUSTED_TRN_ID','CANCELLED_TRN_ID','TRN_EXT01','TRN_EXT02','TRN_EXT03','TRN_EXT04','TRN_EXT05','TRN_EXT06','TRN_EXT07','TRN_EXT08','TRN_EXT09','TRN_EXT10','TRN_EXT11','TRN_EXT12','TRN_EXT13','TRN_EXT14','TRN_EXT15','TRN_EXT16','TRN_EXT17','TRN_EXT18','TRN_EXT19','TRN_EXT20','TRN_EXT21','TRN_EXT22','TRN_EXT23','TRN_EXT24','TRN_EXT25'))
+#     for de in dest :  
+#       for ie in range (ileuserow):   
+#         for ee in range (ileLotow):
+#          writer.writerow((  'I','842166164','B6','12',userId+str(ie),'2015-02-03 00:00:00','2015-03-07 01:03:51','2015-02-02 00:00:00','2015-02-03 00:00:00','','17470','System','0','I','1','Y',dest[0]+de,'seattle10','32F','32F658','B6','F','A','','','','','1922','','Salt Lake Support Center','ONGBGB','298.05','22.35','298.05','1000','1','A','4100003','8072','','','','2125457278','','N','QH00AE5U','Y','','','','','','','B6','8072','SLC','ORL','9010001','WEB - B2C / GUEST - USA','2015-01-08 00:00:00','279','QHIP','','','','','7664','L','P','','','','','','',))
+#     writer.writerow(('T',"94"))
+# finally:
+#     transaction.close()
+
+
+# --------------------------------------------------------------wszystkie loty miedzy lotniskami dla X userow)-----------------
+
+
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -330,3 +322,5 @@ shutil.make_archive(u1+shortDate +"us", 'zip',usrPathToZIP)
 shutil.make_archive(t1+shortDate +"tr", 'zip', tranPathToZIP)
 
 print myDate
+
+
