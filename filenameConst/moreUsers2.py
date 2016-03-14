@@ -146,13 +146,12 @@ def transakcjaPartnerska():
 
 
 
-specifID = input("Podaj  jesli chcesz nadać specyficzne ID użytkownika (w przeciwnym wypadku zostanie nadane losowe) : ")
-if int(specifID) < 1:
-    uID = raw_input("Podaj ID ) : ")
-    userId = uID
+specifID = raw_input("Podaj  jesli chcesz nadać specyficzne ID użytkownika (w przeciwnym wypadku zostanie nadane losowe) : ")
+str(specifID)
+if len(specifID) > 0:       
+      userId = specifID
 else:
-    userId = shortDate
-
+      userId = shortDate
 
 
 ileuserow = input("Ile uzytkownikow : ")
